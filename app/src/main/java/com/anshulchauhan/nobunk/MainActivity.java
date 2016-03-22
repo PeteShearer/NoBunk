@@ -6,7 +6,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     String studentName;
-    boolean studentAttendance;
+    boolean isPresent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void absentClicked(View view) {
-        absent(studentName,studentAttendance);
+        absent(studentName,isPresent);
         nextStudent();
     }
 
     public void presentClicked(View view) {
-        present(studentName,studentAttendance);
+        present(studentName,isPresent);
         nextStudent();
     }
 }
