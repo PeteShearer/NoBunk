@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">No Bunk</string>
+    <string name="currentStudentName">Student Name</string>
+    <string name="StudentName">Student Name</string>
+    <string name="present">PRESENT</string>
+    <string name="absent">ABSENT</string>
+</resources>
