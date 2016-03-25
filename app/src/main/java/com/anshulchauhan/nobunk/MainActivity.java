@@ -1,4 +1,4 @@
-package com.anshulchauhan.nobunktest;
+package com.anshulchauhan.nobunk;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
