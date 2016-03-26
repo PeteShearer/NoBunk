@@ -4,4 +4,5 @@
     <string name="StudentName">Student Name</string>
     <string name="present">PRESENT</string>
     <string name="absent">ABSENT</string>
+    <string name="submit">submit</string>
 </resources>
