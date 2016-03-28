@@ -1,5 +1,7 @@
 package com.anshulchauhan.nobunk;
 
+import android.content.Context;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,28 +14,36 @@ import android.widget.ListView;
 import java.io.File;
 import android.widget.Toast;
 
+
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
 public class MainActivity extends AppCompatActivity {
 
     String TAG = "pokemon";
     ListView theStudentListView;
-    File attendanceFile;
-    String filename = "attendance.txt";
-    FileOutputStream outputStream;
+    Context context = getApplicationContext();
 
-    public ArrayAdapter<String> studentAdapter;
+    String filename = "attendance.txt";
+    File path = Environment.getExternalStoragePublicDirectory("nobunk");
+    File attendanceFile;
+
+    OutputStreamWriter outputStreamWriter;
+    //public ArrayAdapter<String> studentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        attendanceFile = new File(getBaseContext().getFilesDir(),filename);
+        attendanceFile = new File(path,filename);
 
         String[] studentsList = {
                 "011 - Anshul Chauhan",
@@ -79,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 String studentPicked = "You selected " + String.valueOf(adapterView.getItemAtPosition(position));
 
-                //Toast.makeText(MainActivity.this, studentPicked, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, studentPicked, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -91,11 +101,32 @@ public class MainActivity extends AppCompatActivity {
             for (int i=0; i<checkedItems.size(); i++) {
                 if (checkedItems.valueAt(i)) {
                     String item = theStudentListView.getAdapter().getItem(
-                                          checkedItems.keyAt(i)).toString();
-                    Log.i(TAG,item + " was selected");
+                                          checkedItems.keyAt(i)).toString() + "\n";
+                    //Log.i(TAG,item + " was selected");
+
+                    // writing in file
+                    try {
+                        path.mkdirs();
+                        FileWriter out = new FileWriter(new File(context.getFilesDir(),filename));
+                        out.write(item);
+                        out.close();
+                        Log.i(TAG, "FileWriter executed");
+
+                    } catch (Exception e) {
+                        Log.e("Exception","File Write failed " + e.toString());
+                    }
                 }
             }
         }
+    }
+
+
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 
 }
