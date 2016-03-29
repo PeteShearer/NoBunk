@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
 }
 
 dependencies {
@@ -27,8 +31,10 @@ dependencies {
     compile 'com.google.android.gms:play-services-identity:7.8.0'
     compile('com.google.api-client:google-api-client-android:1.20.0') {
         exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.guava', module: 'guava-jdk5'
     }
     compile('com.google.apis:google-api-services-script:v1-rev1-1.20.0') {
         exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.guava', module: 'guava-jdk5'
     }
 }
